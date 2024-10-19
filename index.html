@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA Calculator</title>
+    <style>
+        /* Custom styles */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <table id="gpaTable">
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th>Course</th>
+                <th>Grade</th>
+                <th>Credits</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Initial row -->
+            <tr>
+                <td><input type="checkbox" checked></td>
+                <td><input type="text" placeholder="Course #1"></td>
+                <td>
+                    <select>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <!-- Add other grades here -->
+                    </select>
+                </td>
+                <td><input type="number" min="0"></td>
+                <td><button onclick="deleteRow(this)">X</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button onclick="addRow()">+ Add row</button>
+    <button onclick="resetTable()">Reset</button>
+    <button onclick="calculateGPA()">= Calculate</button>
+
+    <p>GPA: <span id="gpaResult">0.00</span></p>
+
+    <script>
+        // JavaScript to handle row addition, deletion, GPA calculation, and reset
+
+        function addRow() {
+            const table = document.getElementById('gpaTable').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            newRow.innerHTML = `
+                <td><input type="checkbox" checked></td>
+                <td><input type="text" placeholder="Course"></td>
+                <td>
+                    <select>
+                        <option value="A">A</option>
+                        <option value="B+">B+</option>
+                        <option value="B">B</option>
+                        <!-- Add other grades here -->
+                    </select>
+                </td>
+                <td><input type="number" min="0"></td>
+                <td><button onclick="deleteRow(this)">X</button></td>
+            `;
+        }
+
+        function deleteRow(button) {
+            const row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+
+        function resetTable() {
+            const rows = document.querySelectorAll('#gpaTable tbody tr');
+            rows.forEach(row => {
+                if (!row.querySelector('input[type="checkbox"]').checked) return;
+                row.querySelector('input[type="text"]').value = '';
+                row.querySelector('select').selectedIndex = 0;
+                row.querySelector('input[type="number"]').value = '';
+            });
+        }
+
+        function calculateGPA() {
+            // Implement GPA calculation based on checked rows and inputs
+        }
+    </script>
+</body>
+</html>
