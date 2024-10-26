@@ -4,134 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPA Calculator</title>
-    <style>
-        /* Custom styles */
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        input[type="text"], input[type="number"], select {
-            width: 100%;
-        }
-
-        button {
-            padding: 5px 10px;
-            background-color: #f44336;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #d32f2f;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <table id="gpaTable">
-        <thead>
-            <tr>
-                <th>Select</th>
-                <th>Course</th>
-                <th>Grade</th>
-                <th>Credits</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Initial row -->
-            <tr>
-                <td><input type="checkbox" checked></td>
-                <td><input type="text" placeholder="Course #1"></td>
-                <td>
-                    <select>
-                        <option value="A+">A+</option>
-                        <option value="A">A</option>
-                        <option value="A-">A-</option>
-                        <option value="B+">B+</option>
-                        <option value="B">B</option>
-                        <option value="B-">B-</option>
-                        <option value="C+">C+</option>
-                        <option value="C">C</option>
-                        <option value="C-">C-</option>
-                        <option value="D+">D+</option>
-                        <option value="D">D</option>
-                        <option value="D-">D-</option>
-                        <option value="F">F</option>
-                    </select>
-                </td>
-                <td><input type="number" min="0"></td>
-                <td><button onclick="deleteRow(this)">X</button></td>
-            </tr>
-        </tbody>
-    </table>
-
-    <button onclick="addRow()">+ Add row</button>
-    <button onclick="resetTable()">Reset</button>
-    <button onclick="calculateGPA()">= Calculate</button>
-
-    <p>GPA: <span id="gpaResult">0.00</span></p>
-
-    <script>
-        // JavaScript to handle row addition, deletion, GPA calculation, and reset
-
-        function addRow() {
-            const table = document.getElementById('gpaTable').getElementsByTagName('tbody')[0];
-            const newRow = table.insertRow();
-            newRow.innerHTML = `
-                <td><input type="checkbox" checked></td>
-                <td><input type="text" placeholder="Course"></td>
-                <td>
-                    <select>
-                        <option value="A+">A+</option>
-                        <option value="A">A</option>
-                        <option value="A-">A-</option>
-                        <option value="B+">B+</option>
-                        <option value="B">B</option>
-                        <option value="B-">B-</option>
-                        <option value="C+">C+</option>
-                        <option value="C">C</option>
-                        <option value="C-">C-</option>
-                        <option value="D+">D+</option>
-                        <option value="D">D</option>
-                        <option value="D-">D-</option>
-                        <option value="F">F</option>
-                    </select>
-                </td>
-                <td><input type="number" min="0"></td>
-                <td><button onclick="deleteRow(this)">X</button></td>
-            `;
-        }
-
-        function deleteRow(button) {
-            const row = button.parentNode.parentNode;
-            row.parentNode.removeChild(row);
-        }
-
-        function resetTable() {
-            const rows = document.querySelectorAll('#gpaTable tbody tr');
-            rows.forEach(row => {
-                if (!row.querySelector('input[type="checkbox"]').checked) return;
-                row.querySelector('input[type="text"]').value = '';
-                row.querySelector('select').selectedIndex = 0;
-                row.querySelector('input[type="number"]').value = '';
-            });
-        }
-
-        function calculateGPA() {
-            // Implement GPA calculation based on checked rows and inputs
-        }
-    </script>
+    <div class="max-w-4xl mx-auto p-4 bg-background">
+        <h1 class="text-2xl font-bold mb-4">GPA Calculator</h1>
+        <div class="space-y-2">
+            <div class="grid grid-cols-5 gap-2 items-center font-semibold">
+                <div>Include</div>
+                <div>Course (optional)</div>
+                <div>Grade</div>
+                <div>Credits</div>
+                <div></div>
+            </div>
+            <div id="courseList"></div>
+        </div>
+        <button id="addRow" class="mt-4 btn-secondary">+ Add row</button>
+        <div class="mt-6 flex gap-2">
+            <button id="calculateBtn" class="btn-primary">= Calculate</button>
+            <button id="resetBtn" class="btn-outline">x Reset</button>
+        </div>
+        <div id="gpaResult" class="mt-4 hidden">
+            <h2 class="text-xl font-semibold">GPA:</h2>
+            <div id="gpaValue" class="text-3xl font-bold"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
 </body>
 </html>
